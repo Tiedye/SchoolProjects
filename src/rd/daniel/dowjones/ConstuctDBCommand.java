@@ -12,13 +12,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoUnit;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
 import net.dtw.command.Command;
 import net.dtw.command.IllegalArgumentCountException;
 
@@ -28,10 +25,10 @@ import net.dtw.command.IllegalArgumentCountException;
  */
 public class ConstuctDBCommand extends Command {
 
-    private final StringBuilder buffer;
+    private final ArrayList<StockRecord> records;
 
-    public ConstuctDBCommand(StringBuilder buffer) {
-        this.buffer = buffer;
+    public ConstuctDBCommand(ArrayList<StockRecord> records) {
+        this.records = records;
     }
 
     @Override
@@ -60,19 +57,12 @@ public class ConstuctDBCommand extends Command {
             return;
         }
 
-        String[] records = buffer.toString().split("\n");
-
-        for (String record : records) {
-            String[] feilds = record.split(",");
-            if (feilds[0].equals("Date")) {
-                continue;
+        try {
+            for (StockRecord record : records) {
+                record.write(output);
             }
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d-M-u");
-            LocalDate date = LocalDate.parse(feilds[0], dateFormatter);
-            if(date.getYear() > 2025){
-                date.minusYears(100);
-            }
-            
+        } catch (IOException ex) {
+            out.println("Could not write to the file '" + outputFile.getAbsolutePath() + "'.");
         }
 
     }

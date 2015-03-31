@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 import net.dtw.command.Command;
@@ -23,10 +27,10 @@ import net.dtw.command.IllegalArgumentCountException;
  */
 public class LoadCSVCommand extends Command {
 
-    private final StringBuilder buffer;
+    private final ArrayList<StockRecord> records;
 
-    public LoadCSVCommand(StringBuilder buffer) {
-        this.buffer = buffer;
+    public LoadCSVCommand(ArrayList<StockRecord> records) {
+        this.records = records;
     }
 
     @Override
@@ -57,10 +61,44 @@ public class LoadCSVCommand extends Command {
 
         // reads the whole file, splits it into terms by the commas, and selects a random word from that list
         Scanner input = new Scanner(inputStream);
+        String fileData;
         if (input.hasNext()) {
-            buffer.delete(0, buffer.length());
-            buffer.append(input.useDelimiter("\\Z").next());
-            out.println("CSV value loaded.");
+            fileData = input.useDelimiter("\\Z").next();
+
+            String[] rawRecords = fileData.toString().split("\n");
+            
+            records.clear();
+            
+            try {
+                for (String record : rawRecords) {
+                    String[] feilds = record.split(",");
+                    if (feilds[0].equals("Date")) {
+                        continue;
+                    }
+
+                    LocalDate date = LocalDate.parse(feilds[0], DateTimeFormatter.ofPattern("dd-MM-uu"));
+                    if (date.getYear() > 2025) {
+                        date.minusYears(100);
+                    }
+
+                    int condensedDate = date.getYear() * 10000 + date.getMonthValue() * 100 + date.getDayOfMonth();
+                    int open = (int) (Double.parseDouble(feilds[1]) * 100);
+                    int high = (int) (Double.parseDouble(feilds[2]) * 100);
+                    int low = (int) (Double.parseDouble(feilds[3]) * 100);
+                    int close = (int) (Double.parseDouble(feilds[4]) * 100);
+                    long volume = Long.parseLong(feilds[5]);
+                    int adjClose = (int) (Double.parseDouble(feilds[6]) * 100);
+
+                    records.add(new StockRecord(condensedDate, open, high, low, close, volume, adjClose));
+
+                }
+            }catch(Exception e){
+                out.println("Invalid file format:\n  " + e.toString());
+            }
+
+            Collections.sort(records);
+            
+            out.println("CSV file loaded.");
         } else {
             out.println("File is empty.");
         }
