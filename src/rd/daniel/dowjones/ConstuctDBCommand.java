@@ -69,10 +69,9 @@ public class ConstuctDBCommand extends Command {
             }
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d-M-u");
             LocalDate date = LocalDate.parse(feilds[0], dateFormatter);
-            if(date.getYear() > 2020){
-                date.minus(100, ChronoUnit.YEARS);
+            if(date.getYear() > 2025){
+                date.minusYears(100);
             }
-            date.
             
         }
 
