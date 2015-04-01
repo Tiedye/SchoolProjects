@@ -19,7 +19,7 @@ public class Main {
      */
     public static void main(String[] args) {
         ArrayList<StockRecord> loadedCSV = new ArrayList<>();        // output instructions
-        System.out.println("There are four commands available:\n"
+        System.out.println("There are five commands available:\n"
                 + " ∟ convertcsvfile [file]\n"
                 + "    | Loads a csv database into\n"
                 + "    ∟ memory.\n"
