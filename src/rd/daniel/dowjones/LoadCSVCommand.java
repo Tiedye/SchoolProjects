@@ -62,6 +62,7 @@ public class LoadCSVCommand extends Command {
         String fileData;
         if (input.hasNext()) {
             fileData = input.useDelimiter("\\Z").next();
+            input.close();
 
             String[] rawRecords = fileData.toString().split("\n");
             
