@@ -49,8 +49,6 @@ public class StockRecord implements Comparable<StockRecord>{
         return "Date: " + date + ", Open: " + open + ", High: " + high + ", Low: " + low + ", Close: " + close + ", Volume: " + volume + ", Adj. Close: " + adjClose + '}';
     }
     
-    
-    
     @Override
     public int compareTo(StockRecord o) {
         if (condensedDate > o.condensedDate) {

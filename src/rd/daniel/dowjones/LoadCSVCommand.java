@@ -11,12 +11,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 import java.util.Scanner;
 import net.dtw.command.Command;
 import net.dtw.command.IllegalArgumentCountException;
@@ -76,9 +74,9 @@ public class LoadCSVCommand extends Command {
                         continue;
                     }
 
-                    LocalDate date = LocalDate.parse(feilds[0], DateTimeFormatter.ofPattern("dd-MM-uu"));
+                    LocalDate date = LocalDate.parse(feilds[0], DateTimeFormatter.ofPattern("d-MMM-uu"));
                     if (date.getYear() > 2025) {
-                        date.minusYears(100);
+                        date = date.minusYears(100);
                     }
 
                     int condensedDate = date.getYear() * 10000 + date.getMonthValue() * 100 + date.getDayOfMonth();
