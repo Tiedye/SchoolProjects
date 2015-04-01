@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import net.dtw.command.Command;
 import net.dtw.command.IllegalArgumentCountException;
 
@@ -53,6 +54,8 @@ public class ConstuctDBCommand extends Command {
             out.println("The file '" + outputFile.getPath() + "' could not be created/written to.");
             return;
         }
+        
+        Collections.sort(records);
 
         try {
             for (StockRecord record : records) {

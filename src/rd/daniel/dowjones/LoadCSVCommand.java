@@ -93,8 +93,6 @@ public class LoadCSVCommand extends Command {
             }catch(Exception e){
                 out.println("Invalid file format:\n  " + e.toString());
             }
-
-            Collections.sort(records);
             
             out.println("CSV file loaded.");
         } else {
