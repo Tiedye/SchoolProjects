@@ -18,7 +18,12 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ArrayList<StockRecord> loadedCSV = new ArrayList<>();        // output instructions
+        // initialize csv storage
+        // note that the convertcsvfile and create db functions could (should) 
+        //  be combined into one so the whole file need not be laoded into ram
+        //  simtaneously, however the assignment requested the two be separate
+        ArrayList<StockRecord> loadedCSV = new ArrayList<>();
+        // output instructions
         System.out.println("There are five commands available:\n"
                 + " ∟ convertcsvfile [file]\n"
                 + "    | Loads a csv database into\n"
