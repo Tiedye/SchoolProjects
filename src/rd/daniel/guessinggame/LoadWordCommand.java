@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
 import java.util.Scanner;
 import net.dtw.command.Command;
@@ -38,20 +41,20 @@ public class LoadWordCommand extends Command {
         }
 
         // check validity of filename
-        File inputFile = new File(args[0]);
+        Path inputFile;
         try {
             // is it a valid windows filename
-            inputFile.getCanonicalPath();
-        } catch (IOException ex) {
-            out.println("'" + args[0] + "' is not a valid filename.");
+            inputFile = Paths.get(args[0]);
+        } catch (InvalidPathException ex) {
+            out.println("'" + args[0] + "' is not a valid path.");
             return;
         }
         FileInputStream inputStream;
         try {
             // is it readable
-            inputStream = new FileInputStream(inputFile);
+            inputStream = new FileInputStream(inputFile.toString());
         } catch (FileNotFoundException ex) {
-            out.println("The file '" + inputFile.getPath() + "' could not be read.");
+            out.println("The file '" + inputFile.toString() + "' could not be read.");
             return;
         }
 
