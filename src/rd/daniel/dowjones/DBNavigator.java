@@ -22,15 +22,21 @@ import java.util.logging.Logger;
  */
 public class DBNavigator implements List<Integer>, RandomAccess {
     
+    // This allows the program to use java's searching algorithms to search for
+    // an item in the file without loading the whole file.
+    
     private final RandomAccessFile file;
     private final int size;
 
     public DBNavigator(String file) throws FileNotFoundException, IOException {
         this.file = new RandomAccessFile(file, "r");
+        // create the random access file, each record is 32 bytes so the length
+        // is the size of the file divide by 32
         size = (int)this.file.length() / 32;
     }
     
     public StockRecord getRecord(int index) throws IndexOutOfBoundsException {
+        // reads the full record from a point in the file
         StockRecord record = new StockRecord(0, 0, 0, 0, 0, 0, 0);
         try {
             file.seek(index * 32);
@@ -113,6 +119,9 @@ public class DBNavigator implements List<Integer>, RandomAccess {
 
     @Override
     public Integer get(int index) {
+        // gets just the date from a record in the file, the java library uses
+        // this for searching
+        if (index >= size) throw new IndexOutOfBoundsException();
         int date = 0;
         try {
             file.seek(index * 32);
@@ -165,6 +174,7 @@ public class DBNavigator implements List<Integer>, RandomAccess {
 
     @Override
     protected void finalize() throws Throwable {
+        // close the file when the database navigator is destroyed
         file.close();
         super.finalize(); //To change body of generated methods, choose Tools | Templates.
     }

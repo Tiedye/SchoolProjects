@@ -14,7 +14,6 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 import net.dtw.command.Command;
 import net.dtw.command.IllegalArgumentCountException;
@@ -57,29 +56,35 @@ public class LoadCSVCommand extends Command {
             return;
         }
 
-        // reads the whole file, splits it into terms by the commas, and selects a random word from that list
         Scanner input = new Scanner(inputStream);
         String fileData;
+        // check if file is empty
         if (input.hasNext()) {
+            // read the whole file
             fileData = input.useDelimiter("\\Z").next();
             input.close();
-
-            String[] rawRecords = fileData.toString().split("\n");
+            
+            // put each record in its own string
+            String[] rawRecords = fileData.split("\n");
             
             records.clear();
             
             try {
                 for (String record : rawRecords) {
+                    // parse each record
                     String[] feilds = record.split(",");
                     if (feilds[0].equals("Date")) {
+                        // ignore the table headings
                         continue;
                     }
-
+                    
+                    // read the date and correct the two digit years
                     LocalDate date = LocalDate.parse(feilds[0], DateTimeFormatter.ofPattern("d-MMM-uu"));
                     if (date.getYear() > 2025) {
                         date = date.minusYears(100);
                     }
-
+                    
+                    // stare the record
                     int condensedDate = date.getYear() * 10000 + date.getMonthValue() * 100 + date.getDayOfMonth();
                     int open = (int) (Double.parseDouble(feilds[1]) * 100);
                     int high = (int) (Double.parseDouble(feilds[2]) * 100);
