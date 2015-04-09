@@ -43,6 +43,7 @@ public class GetRecordFromIndexCommand extends Command {
             out.println("The file '" + inputFile.getPath() + "' could not be read.");
             return;
         }
+        // get the record and print it, catchin user errors
         StockRecord record;
         try {
             record = nav.getRecord(Integer.parseInt(args[1]));

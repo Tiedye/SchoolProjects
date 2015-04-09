@@ -15,8 +15,6 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.dtw.command.Command;
 import net.dtw.command.IllegalArgumentCountException;
 
@@ -40,7 +38,7 @@ public class ConstuctDBCommand extends Command {
             throw new IllegalArgumentCountException();
         }
         
-        if (records.size() == 0) {
+        if (records.isEmpty()) {
             out.println("No data to write.");
             return;
         }
@@ -63,10 +61,12 @@ public class ConstuctDBCommand extends Command {
             return;
         }
         
+        // sort the records by date (oldest first)
         Collections.sort(records);
 
         try {
             for (StockRecord record : records) {
+                // write each record to the file in order
                 record.write(output);
             }
         } catch (IOException ex) {
