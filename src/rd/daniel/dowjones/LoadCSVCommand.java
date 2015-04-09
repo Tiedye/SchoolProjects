@@ -14,6 +14,7 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import net.dtw.command.Command;
 import net.dtw.command.IllegalArgumentCountException;
@@ -61,6 +62,7 @@ public class LoadCSVCommand extends Command {
         String fileData;
         if (input.hasNext()) {
             fileData = input.useDelimiter("\\Z").next();
+            input.close();
 
             String[] rawRecords = fileData.toString().split("\n");
             

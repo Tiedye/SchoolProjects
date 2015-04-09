@@ -5,6 +5,7 @@
  */
 package rd.daniel.dowjones;
 
+import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +15,8 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.dtw.command.Command;
 import net.dtw.command.IllegalArgumentCountException;
 
@@ -36,6 +39,11 @@ public class ConstuctDBCommand extends Command {
         if (args.length != 1) {
             throw new IllegalArgumentCountException();
         }
+        
+        if (records.size() == 0) {
+            out.println("No data to write.");
+            return;
+        }
 
         // check validity of filename
         File outputFile = new File(args[0]);
@@ -49,7 +57,7 @@ public class ConstuctDBCommand extends Command {
         DataOutputStream output;
         try {
             // is it writeable
-            output = new DataOutputStream(new FileOutputStream(outputFile));
+            output = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(outputFile)));
         } catch (FileNotFoundException ex) {
             out.println("The file '" + outputFile.getPath() + "' could not be created/written to.");
             return;
@@ -63,6 +71,13 @@ public class ConstuctDBCommand extends Command {
             }
         } catch (IOException ex) {
             out.println("Could not write to the file '" + outputFile.getAbsolutePath() + "'.");
+            return;
+        }
+        
+        try {
+            output.close();
+        } catch (IOException ex) {
+            out.println("Unexpected I/O error.");
         }
         
         out.println("The file '" + outputFile.getPath() + "' was created.");

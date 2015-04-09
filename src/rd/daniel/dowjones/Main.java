@@ -35,7 +35,7 @@ public class Main {
                 + "    | Gets the record at a certain\n"
                 + "    | index in a binary database\n"
                 + "    ∟ file.\n"
-                + " ∟ getindexfromfile [file] [index]\n"
+                + " ∟ getdatefromfile [file] [index]\n"
                 + "    | Gets the record at a certain\n"
                 + "    | date in a binary database\n"
                 + "    ∟ file.\n"

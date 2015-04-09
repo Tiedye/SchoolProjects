@@ -162,5 +162,11 @@ public class DBNavigator implements List<Integer>, RandomAccess {
     public List<Integer> subList(int fromIndex, int toIndex) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        file.close();
+        super.finalize(); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
