@@ -46,7 +46,7 @@ public class StockRecord implements Comparable<StockRecord>{
     @Override
     public String toString() {
         LocalDate date = LocalDate.of(condensedDate/10000, condensedDate/100%100, condensedDate%100);
-        return "Date: " + date + ", Open: " + open + ", High: " + high + ", Low: " + low + ", Close: " + close + ", Volume: " + volume + ", Adj. Close: " + adjClose + '}';
+        return "Date: " + date + ", Open: " + open + ", High: " + high + ", Low: " + low + ", Close: " + close + ", Volume: " + volume + ", Adj. Close: " + adjClose;
     }
     
     @Override
