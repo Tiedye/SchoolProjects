@@ -44,7 +44,7 @@ public class StockRecord implements Comparable<StockRecord>{
         out.writeInt(adjClose);
     }
     
-    private static NumberFormat moneyFormatter = NumberFormat.getCurrencyInstance();
+    private static final NumberFormat moneyFormatter = NumberFormat.getCurrencyInstance();
     
     private static String toMoney(int value) {
         return moneyFormatter.format(value / 100.0);
@@ -52,7 +52,7 @@ public class StockRecord implements Comparable<StockRecord>{
 
     @Override
     public String toString() {
-        // convert integer money values back to the input
+        // convert integer money values back to the input format and print 'em
         LocalDate date = LocalDate.of(condensedDate/10000, condensedDate/100%100, condensedDate%100);
         return "Date: " + date + ", Open: " + toMoney(open) + ", High: " + toMoney(high) + ", Low: " + toMoney(low) + ", Close: " + toMoney(close) + ", Volume: " + volume + ", Adj. Close: " + toMoney(adjClose);
     }
