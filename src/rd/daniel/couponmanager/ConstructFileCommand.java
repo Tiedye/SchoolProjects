@@ -5,9 +5,15 @@
  */
 package rd.daniel.couponmanager;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.Scanner;
-import net.dtw.command.*;
+import net.dtw.command.Command;
+import net.dtw.command.IllegalArgumentCountException;
 
 /**
  *
@@ -17,15 +23,13 @@ public class ConstructFileCommand extends Command {
 
     @Override
     protected void doCommand(String[] args, InputStream in, PrintStream out) throws IllegalArgumentException, IllegalArgumentCountException {
-        
+
         // check arg length
-        
         if (args.length != 1) {
             throw new IllegalArgumentCountException();
         }
-        
+
         // check validity of filename
-        
         File outputFile = new File(args[0]);
         try {
             // is it a valid windows filename
@@ -42,14 +46,15 @@ public class ConstructFileCommand extends Command {
             out.println("The file '" + outputFile.getPath() + "' could not be created/written to.");
             return;
         }
-        
+
         // construct string of comma separated values from user input
-        
         Scanner input = new Scanner(in);
         StringBuilder newCSV = new StringBuilder();
-        while(true) {
+        while (true) {
             String nextLine = input.nextLine();
-            if (nextLine.equals("stop")) break;
+            if (nextLine.equals("stop")) {
+                break;
+            }
             // hash coupons before adding to string
             newCSV.append(Hasher.hash(nextLine)).append(",");
         }
@@ -58,5 +63,5 @@ public class ConstructFileCommand extends Command {
         outputWriter.close();
         out.println("Coupon list '" + outputFile.getPath() + "' created.");
     }
-    
+
 }

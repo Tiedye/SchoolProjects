@@ -27,7 +27,11 @@ public class Hasher {
             Logger.getLogger(Hasher.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    /**
+     * Hashes a string using the sha256 algorithm
+     * @param string the string to be hashed.
+     * @return the string representation of the hash.
+     */
     public static String hash(String string) {
         digester.update(string.getBytes());
         byte[] hash = digester.digest();
