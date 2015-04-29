@@ -17,7 +17,7 @@ public class Search {
     
     public static int BinarySearch(int[] a, int n){
         int low = 0,high = a.length-1;
-        for(int mid = (low + high)/2; mid >= low; mid = (low + high)/2) {
+        for(int mid = high/2; mid >= low; mid = (low + high)/2) {
             if (a[mid] > n) high = mid - 1;
             else if (a[mid] < n) low = mid + 1;
             else return mid;
@@ -27,7 +27,7 @@ public class Search {
     
     public static int BinarySearch(String[] a, String n){
         int low = 0,high = a.length-1;
-        for(int mid = (low + high)/2; mid >= low; mid = (low + high)/2) {
+        for(int mid = high/2; mid >= low; mid = (low + high)/2) {
             if (a[mid].compareTo(n) > 0) high = mid - 1;
             else if (a[mid].compareTo(n) < 0) low = mid + 1;
             else return mid;
