@@ -46,8 +46,8 @@ public class Main {
                 pos = Search.LinearSearch(dat, searchString);
             }
             long t3 = System.nanoTime();
-            System.out.println((t2 - t1) / 1000000000.0);
-            System.out.println((t3 - t2) / 1000000000.0);
+            System.out.println((t2 - t1) / 1e9);
+            System.out.println((t3 - t2) / 1e9);
         }
     }
 
