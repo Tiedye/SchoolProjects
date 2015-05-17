@@ -26,12 +26,14 @@ public class Main {
         System.out.println("File path?");
         String fileName = in.nextLine();
         String[] dat = new String[]{};
+        // read the lines of a file into an array of strings
         try {
             dat = new Scanner(new File(fileName)).useDelimiter("\\Z").next().trim().split("\r\n");
         } catch (FileNotFoundException ex) {
             System.err.println("File not found.");
         }
         while (true) {
+            // searches for the specified string 10000 times using each algorithim and times the total execution time of each algorithim.
             System.out.println("String?");
             String searchString = in.nextLine();
             int pos;
