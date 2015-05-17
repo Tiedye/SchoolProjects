@@ -15,6 +15,12 @@ public class Search {
     
     private Search() {}
     
+    /**
+     * Preforms a binary search of an array for the specified item.
+     * @param a The array.
+     * @param n The item.
+     * @return The index if the found item.
+     */
     public static int BinarySearch(int[] a, int n){
         int low = 0,high = a.length-1;
         for(int mid = high/2; mid >= low; mid = (low + high)/2) {
@@ -25,6 +31,12 @@ public class Search {
         return -1;
     }
     
+    /**
+     * Preforms a binary search of an array for the specified item.
+     * @param a The array.
+     * @param n The item.
+     * @return The index if the found item.
+     */
     public static int BinarySearch(String[] a, String n){
         int low = 0,high = a.length-1;
         for(int mid = high/2; mid >= low; mid = (low + high)/2) {
@@ -35,6 +47,12 @@ public class Search {
         return -1;
     }
     
+    /**
+     * Preforms a binary search of an array for the specified item.
+     * @param a The array.
+     * @param n The item.
+     * @return The index if the found item.
+     */
     public static int LinearSearch(int[] a, int n){
         for(int i = 0; i < a.length; i++){
             if(a[i] == n) return i;
@@ -42,6 +60,12 @@ public class Search {
         return -1;
     }
     
+    /**
+     * Preforms a binary search of an array for the specified item.
+     * @param a The array.
+     * @param n The item.
+     * @return The index if the found item.
+     */
     public static int LinearSearch(String[] a, String n){
         for(int i = 0; i < a.length; i++){
             if(a[i].equals(n)) return i;
