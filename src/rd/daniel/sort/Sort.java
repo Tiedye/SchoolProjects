@@ -17,7 +17,7 @@ public class Sort {
         for(int i = 0; i < a.length; i++) {
             int t = a[i];
             int j;
-            for (j = i; j > 0 && a[j] < a[j-1]; j--) a[j] = a[j-1];
+            for (j = i; j > 0 && t < a[j-1]; j--) a[j] = a[j-1];
             a[j] = t;
         }
     }
@@ -29,7 +29,7 @@ public class Sort {
         for(int i = 0; i < a.length; i++) {
             double t = a[i];
             int j;
-            for (j = i; j > 0 && a[j] < a[j-1]; j--) a[j] = a[j-1];
+            for (j = i; j > 0 && t < a[j-1]; j--) a[j] = a[j-1];
             a[j] = t;
         }
     }
@@ -41,7 +41,7 @@ public class Sort {
         for(int i = 0; i < a.length; i++) {
             Comparable t = a[i];
             int j;
-            for (j = i; j > 0 && a[j].compareTo(a[j-1]) < 0; j--) a[j] = a[j-1];
+            for (j = i; j > 0 && t.compareTo(a[j-1]) < 0; j--) a[j] = a[j-1];
             a[j] = t;
         }
     }

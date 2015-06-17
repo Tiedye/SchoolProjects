@@ -32,7 +32,8 @@ public class Main {
                 out.println("File not found.");
             }
             
-            Sort.HeapSort(dat);
+            Sort.InsertionSort(dat);
+            //Sort.HeapSort(dat);
             
             try (PrintWriter file = new PrintWriter(new File(args[0].replaceAll("^(.+)(\\.[^\\.]*)$", "$1_sorted$2")));) {
                 for (String string : dat) {
